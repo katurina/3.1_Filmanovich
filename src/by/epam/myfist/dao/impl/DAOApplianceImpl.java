@@ -31,18 +31,22 @@ public class DAOApplianceImpl implements DAOAppliance {
             statement.setString(2, surname);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    Person person = new Person();
-                    person.setName(resultSet.getString(1));
-                    person.setSurname(resultSet.getString(2));
-                    person.setNumber(resultSet.getString(3));
-                    person.setEmail(resultSet.getString(4));
-                    return person;
+                    return createPerson(resultSet);
                 }
             }
         } catch (SQLException e) {
             throw new DAOException(e);
         }
         return null;
+    }
+
+    private Person createPerson(ResultSet resultSet) throws SQLException {
+        Person person = new Person();
+        person.setName(resultSet.getString(1));
+        person.setSurname(resultSet.getString(2));
+        person.setNumber(resultSet.getString(3));
+        person.setEmail(resultSet.getString(4));
+        return person;
     }
 
 
