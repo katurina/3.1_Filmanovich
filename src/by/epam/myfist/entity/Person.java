@@ -71,6 +71,7 @@ public class Person {
         return getEmail() != null ? getEmail().equals(person.getEmail()) : person.getEmail() == null;
     }
 
+
     @Override
     public int hashCode() {
         int result = getName() != null ? getName().hashCode() : 0;
