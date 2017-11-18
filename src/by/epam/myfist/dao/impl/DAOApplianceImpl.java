@@ -18,6 +18,12 @@ public class DAOApplianceImpl implements DAOAppliance {
     private static final String PASSWORD_DB = "root";
     private static final String SELECT_PERSON_BY_NAME_SURNAME =
             "SELECT name,surname,number,email FROM users WHERE name = ? AND surname = ?";
+    private static final int PARAMETER_INDEX_FIRST = 1;
+    private static final int PARAMETER_INDEX_SECOND = 2;
+    private static final int FIRST_COLUMN = 1;
+    private static final int SECOND_COLUMN = 2;
+    private static final int THIRD_COLUMN = 3;
+    private static final int FORTH_COLUMN = 4;
 
     private volatile static boolean isInitialized = false;
 
@@ -27,8 +33,8 @@ public class DAOApplianceImpl implements DAOAppliance {
         registerDriver();
         try (Connection connection = DriverManager.getConnection(URL_DB, USER_DB, PASSWORD_DB)) {
             PreparedStatement statement = connection.prepareStatement(SELECT_PERSON_BY_NAME_SURNAME);
-            statement.setString(1, name);
-            statement.setString(2, surname);
+            statement.setString(PARAMETER_INDEX_FIRST, name);
+            statement.setString(PARAMETER_INDEX_SECOND, surname);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return createPerson(resultSet);
@@ -42,10 +48,10 @@ public class DAOApplianceImpl implements DAOAppliance {
 
     private Person createPerson(ResultSet resultSet) throws SQLException {
         Person person = new Person();
-        person.setName(resultSet.getString(1));
-        person.setSurname(resultSet.getString(2));
-        person.setNumber(resultSet.getString(3));
-        person.setEmail(resultSet.getString(4));
+        person.setName(resultSet.getString(FIRST_COLUMN));
+        person.setSurname(resultSet.getString(SECOND_COLUMN));
+        person.setNumber(resultSet.getString(THIRD_COLUMN));
+        person.setEmail(resultSet.getString(FORTH_COLUMN));
         return person;
     }
 

@@ -1,5 +1,6 @@
 package by.epam.myfist.controller;
 
+import by.epam.myfist.entity.Person;
 import by.epam.myfist.service.ServiceAppliance;
 import by.epam.myfist.service.ServiceFactory;
 import by.epam.myfist.service.exception.ServiceException;
@@ -19,11 +20,12 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
         try {
             ServiceAppliance serviceAppliance = ServiceFactory.getInstance().getServiceAppliance();
-            request.setAttribute(PERSON, serviceAppliance.find(request.getParameter(PARAM_NAME), request.getParameter(PARAM_SURNAME)));
+            String name = request.getParameter(PARAM_NAME);
+            String surname = request.getParameter(PARAM_SURNAME);
+            Person person = serviceAppliance.find(name, surname);
+            request.setAttribute(PERSON, person);
 
             request.getRequestDispatcher(MAIN_JSP).forward(request, response);
 
