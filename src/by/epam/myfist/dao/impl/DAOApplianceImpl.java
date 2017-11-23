@@ -57,13 +57,14 @@ public class DAOApplianceImpl implements DAOAppliance {
 
 
     private synchronized static void registerDriver() throws DAOException {
-        try {
+        try {// прикольно), в будущем для такой инициализации можно использовать возможности сервета или листенеров
             if (!isInitialized) {
                 Class.forName(DRIVER_DB);
                 isInitialized = true;
             }
         } catch (ClassNotFoundException e) {
-            throw new DAOException(e);
+            throw new DAOException(e);// если выбрасываешь свое исключение, то на это есть причина и ее надо указать в сообщении 
+            // throw new DAOException("my message", e);
         }
     }
 
