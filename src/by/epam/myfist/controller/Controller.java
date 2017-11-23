@@ -31,7 +31,9 @@ public class Controller extends HttpServlet {
 
         } catch (ServiceException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new RuntimeException(e);//?????????? силы не хватило додумать?
+            // а переправить пользователя на страницу ошибок?
+            // зачем runtime в виртуальную машину кидать, да еще добровольно
         }
     }
 }
